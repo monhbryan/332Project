@@ -1,0 +1,18 @@
+Select a.title, b.classroom, b.meetingDays, b.beginTime, b.endTime
+FROM Professor a, Sections b
+WHERE a.cwid = b.cwid;
+
+
+Select b.grade, count(*) as Grade
+FROM EnrolledIn b
+Where (b.courseNum = 5 AND b.sectionNum =33)
+GROUP BY b.grade
+
+
+Select b.sectionNum, b.classroom, b.meetingDays, b.beginTime, b.endTime, count(DISTINCT(a.cwid)) as "Enrolled Students"
+FROM EnrolledIn a, Sections b
+WHERE (a.courseNum = 5 and b.courseNumber = 5);
+
+Select a.courseNum, a.grade
+From EnrolledIn a
+Where a.cwid = 9;

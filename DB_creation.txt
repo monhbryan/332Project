@@ -1,0 +1,75 @@
+create table Professor (
+cwid int NOT NULL,
+ssn int NOT NULL, 
+name VARCHAR(50), 
+title VARCHAR(25), 
+sex char(1), 
+areacode char(3), 
+7digit char(7), 
+streetaddr VARCHAR(75), 
+zip char(5), 
+state char(2), 
+departmentNum int, 
+PRIMARY KEY(cwid));
+
+create table Department(
+departmentNum int, 
+departmentName varchar(50),
+location varchar(30),
+telephone char(10),
+PRIMARY KEY(departmentNum) );
+
+create table Student(
+cwid int NOT NULL,
+firstName varchar(25),
+lastName varChar(25),
+address varChar(75),
+majorDepNum int,
+PRIMARY KEY(cwid) );
+
+create table Course(
+courseNum int NOT NULL,
+units int,
+courseTitle varchar(35),
+textbook varchar(50),
+depNum int,
+PRIMARY KEY(courseNum) );
+
+create table preReqCourse(
+specifiedCourse int,
+preReqNum int,
+PRIMARY KEY (specifiedCourse, preReqNum) );
+
+create table Sections(
+sectionNum int,
+courseNumber int, 
+meetingDays char(7),
+beginTime int,
+endTime int,
+seatNum int,
+profcwid int,
+classroom varChar(10)
+PRIMARY KEY (sectionNum),
+FOREIGN KEY (courseNumber) REFERENCES Course(courseNum) ON DELETE CASCADE
+);
+
+create table EnrolledIn(
+cwid int,
+sectionNum int,
+courseNum int,
+grade varChar(2),
+FOREIGN KEY (cwid) REFERENCES Student(cwid),
+FOREIGN KEY (sectionNum) REFERENCES Sections(sectionNum) );
+
+create table MinorsIn(
+cwid int,
+depNum int,
+FOREIGN KEY (cwid) REFERENCES Student(cwid),
+FOREIGN KEY (depNum) REFERENCES Department(departmentNum) );
+
+create table profDegrees(
+cwid int,
+degrees varchar(50),
+FOREIGN KEY (cwid) REFERENCES Professor(cwid) );
+
+
